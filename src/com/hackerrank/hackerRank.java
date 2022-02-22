@@ -1,5 +1,7 @@
 package com.hackerrank;
 import java.util.Scanner;
+import java.io.IOException;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
@@ -23,11 +25,77 @@ import static java.util.stream.Collectors.toList;
 public class hackerRank {
 
 	public static void main(String[] args) throws IOException {
-		  arrayList();
-	    }
+		generics();
+      
+    }
 
 
 
+	static void generics() {
+		Printer myPrinter = new Printer();
+        Integer[] intArray = { 1, 2, 3 };
+        String[] stringArray = {"Hello", "World"};
+        myPrinter.printArray(intArray);
+        myPrinter.printArray(stringArray);
+        int count = 0;
+
+        for (Method method : Printer.class.getDeclaredMethods()) {
+            String name = method.getName();
+
+            if(name.equals("printArray"))
+                count++;
+        }
+
+        if(count > 1)System.out.println("Method overloading is not allowed!");
+	}
+	
+
+
+	static void hSet() {
+		Scanner s = new Scanner(System.in);
+	        int t = s.nextInt();
+	        String [] pair_left = new String[t];
+	        String [] pair_right = new String[t];
+	        
+	        for (int i = 0; i < t; i++) {
+	            pair_left[i] = s.next();
+	            pair_right[i] = s.next();
+	        }
+	        HashSet<String> pairs = new HashSet<String>(t);
+
+	        for(int i = 0; i < t; i++)
+	        {
+	            pairs.add("(" + pair_left[i] + ", " + pair_right[i] + ")" );
+	            System.out.println(pairs.size());        
+	        }
+	}
+	
+
+	static void map() {
+		Scanner in = new Scanner(System.in);
+		int n=in.nextInt();
+		in.nextLine();
+		HashMap<String, Integer> h = new HashMap<>();
+		for(int i=0;i<n;i++)
+		{
+			String name=in.nextLine();
+			int phone=in.nextInt();
+			h.put(name, phone);
+			in.nextLine();
+			
+		}
+		while(in.hasNext())
+		{
+			String s=in.nextLine();
+if(h.containsKey(s)) {
+
+	System.out.println(s+"="+h.get(s));
+}
+else {
+	System.out.println("Not Found");
+}
+		}
+	}
 
 
 	static void arrayList() {
