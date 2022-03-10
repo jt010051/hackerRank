@@ -20,16 +20,114 @@ import java.util.concurrent.*;
 import java.util.function.*;
 import java.util.regex.*;
 import java.util.stream.*;
+
+
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 public class hackerRank {
 
 	public static void main(String[] args) throws IOException {
-		generics();
-      
-    }
+		
+		//review code before next challenge
+		  bitSet();
+	}
 
+	static void bitSet() {
+		 Scanner scan = new Scanner(System.in);
+	      int n = scan.nextInt();
+	    int m = scan.nextInt();
 
+	    BitSet b1 = new BitSet(n);
+	    BitSet b2 = new BitSet(n);
+
+	    for (int i = 0; i < m; i++) {
+	      String opcode = scan.next();
+	      int num1 = scan.nextInt();
+	      int num2 = scan.nextInt();
+
+	      switch(opcode) {
+	        case "AND":
+	          if (num1 == 1 && num2 == 2) {
+	            b1.and(b2);
+	          } else if (num1 == 2 && num2 == 1) {
+	            b2.and(b1);
+	          } else if (num1 == 1 && num2 == 1) {
+	            b1.and(b1);
+	          } else if (num1 == 2 && num2 == 2) {
+	            b2.and(b2);
+	          }
+	          break;
+	        case "OR":
+	          if (num1 == 1 && num2 == 2) {
+	            b1.or(b2);
+	          } else if (num1 == 2 && num2 == 1) {
+	            b2.or(b1);
+	          } else if (num1 == 1 && num2 == 1) {
+	            b1.or(b1);
+	          } else if (num1 == 2 && num2 == 2) {
+	            b2.or(b2);
+	          }
+	          break;
+	        case "XOR":
+	          if (num1 == 1 && num2 == 2) {
+	            b1.xor(b2);
+	          } else if (num1 == 2 && num2 == 1) {
+	            b2.xor(b1);
+	          } else if (num1 == 1 && num2 == 1) {
+	            b1.xor(b1);
+	          } else if (num1 == 2 && num2 == 2) {
+	            b2.xor(b2);
+	          }
+	          break;
+	        case "FLIP":
+	          if (num1 == 1) {
+	            b1.flip(num2);
+	          } else if (num1 == 2) {
+	            b2.flip(num2);
+	          }
+	          break;
+	        case "SET":
+	          if (num1 == 1) {
+	            b1.set(num2);
+	          } else if (num1 == 2) {
+	            b2.set(num2);
+	          }
+	          break;
+	      }
+	      System.out.println(b1.cardinality() + " " + b2.cardinality());
+	    }
+	}
+
+	static void javaSort() {
+		Scanner in = new Scanner(System.in);
+		int testCases = Integer.parseInt(in.nextLine());
+		
+		List<Student> studentList = new ArrayList<Student>();
+		while(testCases>0){
+			int id = in.nextInt();
+			String fname = in.next();
+			double cgpa = in.nextDouble();
+		
+			
+			Student st = new Student(id, fname, cgpa);
+			
+		
+			studentList.add(st);
+			
+			 Collections.sort(studentList,  Comparator.comparing(Student :: getCgpa).reversed().
+		              thenComparing(Student :: getFname).thenComparing(Student :: getId));
+			testCases--;
+		}
+		
+	
+	
+		
+    
+       
+      	for(Student st: studentList){
+			System.out.println(st.getFname());
+		}
+	}
 
 	static void generics() {
 		Printer myPrinter = new Printer();
