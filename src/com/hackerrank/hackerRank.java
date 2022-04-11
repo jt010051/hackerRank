@@ -1,5 +1,6 @@
 package com.hackerrank;
 import java.util.Scanner;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -24,12 +25,119 @@ import java.util.stream.*;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+
+
 public class hackerRank {
 
-	public static void main(String[] args) throws IOException {
+	
+    public static void main(String[] args) {
+    	//review; doesn't pass all test cases
+    	 Scanner in = new Scanner(System.in);
+         Deque<Integer> deque = new ArrayDeque<>();
+         //HashSet<Integer> set = new HashSet<>();
+         int max = Integer.MIN_VALUE;
+
+         int n = in.nextInt();
+         int m = in.nextInt();
+
+         for (int i = 0; i < n; i++) {
+             int num = in.nextInt();
+             		deque.add(num);
+//set.add(num);
+             	    if (deque.size() ==m) {
+                    	if (deque.size()>max) max=deque.size();
+                    	int first = deque.remove();
+                    	if(!deque.contains(first)) deque.remove(first);
+                    }
+         }
+    
+         System.out.println(max);
+    }
+	static void comparator() {
+		Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+
+        Player[] player = new Player[n];
+        Checker checker = new Checker();
+        
+        for(int i = 0; i < n; i++){
+            player[i] = new Player(scan.next(), scan.nextInt());
+        }
+        scan.close();
+
+        Arrays.sort(player, checker);
+        for(int i = 0; i < player.length; i++){
+            System.out.printf("%s %s\n", player[i].name, player[i].score);
+        }
+	}
+	static void javaStack() {
+		Stack<Character> stack = new Stack<Character>();
+        Scanner sc = new Scanner(System.in);
+        String line;
+        while (sc.hasNextLine()){
+            line = sc.nextLine();
+            if (isBalanced(line)) System.out.println("true");
+            else System.out.println("false");
+        }
+	}
+    public static boolean isBalanced(String s) {
+		//review code
+        Stack<Character> stack = new Stack<Character>();
+        for (int i=0; i<s.length();++i){
+            if (s.charAt(i) == '(') stack.push('(');
+            else if (s.charAt(i) == '{') stack.push('{');
+            else if (s.charAt(i) == '[') stack.push('[');
+            else if (s.charAt(i) == ')') {
+                if (stack.isEmpty()) return false;
+                if (stack.pop() != '(') return false;
+            }
+            else if (s.charAt(i) == '}') {
+                if (stack.isEmpty()) return false;
+                if (stack.pop() != '{') return false;
+            }
+            else if (s.charAt(i) == ']') {
+                if (stack.isEmpty()) return false;
+                if (stack.pop() != '[') return false;
+            }
+        }
+        return stack.isEmpty();
+    }
+    
+
 		
-		//review code before next challenge
-		  bitSet();
+	static void array2() {
+		Scanner scan = new Scanner(System.in);
+        int q = scan.nextInt();
+        while (q-- > 0) {
+            int n = scan.nextInt();
+            int leap = scan.nextInt();
+            
+            int[] game = new int[n];
+            for (int i = 0; i < n; i++) {
+                game[i] = scan.nextInt();
+            }
+
+            System.out.println( (canWin(leap, game)) ? "YES" : "NO" );
+        }
+        scan.close();
+	}
+	private static boolean isSolvable(int leap, int[] game, int i) {
+	    // Base Cases
+	    if (i >= game.length) {
+	        return true;
+	    } else if (i < 0 || game[i] == 1) {
+	        return false;
+	    }
+	            
+	    game[i] = 1; // marks as visited
+
+	    // Recursive Cases
+	    return isSolvable(leap, game, i + leap) || 
+	           isSolvable(leap, game, i + 1) || 
+	           isSolvable(leap, game, i - 1);
+	}
+	public static boolean canWin(int leap, int[] game) {
+	    return isSolvable(leap, game, 0);
 	}
 
 	static void bitSet() {
